@@ -1,6 +1,6 @@
 # ui-content-selector [![Build Status](https://travis-ci.org/mikelaud/ui-content-selector.svg?branch=master)](https://travis-ci.org/mikelaud/ui-content-selector) [![codecov](https://codecov.io/gh/mikelaud/ui-content-selector/branch/master/graph/badge.svg)](https://codecov.io/gh/mikelaud/ui-content-selector) [![Release](https://jitpack.io/v/mikelaud/ui-content-selector.svg)](https://jitpack.io/#mikelaud/ui-content-selector)
 
-ui-content-selector JavaFX Component
+ui-content-selector (JavaFX Component)
 
 **Usage:**
 - [UiContentSelectorDemo.java](https://github.com/mikelaud/ui-content-selector/blob/master/src/test/java/com/blogspot/mikelaud/ui/UiContentSelectorDemo.java)
