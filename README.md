@@ -3,7 +3,7 @@
 ui-content-selector JavaFX Component
 
 **Usage:**
-- https://github.com/mikelaud/ui-content-selector/blob/master/src/test/java/com/blogspot/mikelaud/ui/UiContentSelectorDemo.java
+- [UiContentSelectorDemo.java](https://github.com/mikelaud/ui-content-selector/blob/master/src/test/java/com/blogspot/mikelaud/ui/UiContentSelectorDemo.java)
 
 **Maven:**
 ```XML
