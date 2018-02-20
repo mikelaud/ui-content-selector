@@ -9,6 +9,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.TreeView;
+import javafx.scene.control.TreeItem;
 
 public class UiContentSelector extends StackPane {
 
@@ -19,8 +21,6 @@ public class UiContentSelector extends StackPane {
 	private TitledPane newTitledPane(String aTitle) {
 		final TitledPane pane = new TitledPane();
 		pane.setText(aTitle);
-		pane.setContent(new Button(aTitle));
-		
 		final ToggleGroup group = new ToggleGroup();
 
 		ToggleButton tb1 = new ToggleButton("Book");
@@ -30,11 +30,21 @@ public class UiContentSelector extends StackPane {
 		tb2.setToggleGroup(group);
 		
 		HBox box = new HBox();
-		box.getChildren().add(new Button("x"));
+		Button tb3 = new Button("x");
+		box.getChildren().add(tb3);
 		box.getChildren().add(tb1);
 		box.getChildren().add(tb2);
 
 		pane.setGraphic(box);
+		TreeView<String> treeView = new TreeView<>();
+		TreeItem<String> root = new TreeItem<>("Library");
+		root.setExpanded(true);
+		root.getChildren().add(new TreeItem<>("Book 1"));
+		root.getChildren().add(new TreeItem<>("Book 2"));
+		root.getChildren().add(new TreeItem<>("Book 3"));
+		treeView.setRoot(root);
+		
+		pane.setContent(treeView);
 		return pane;
 	}
 
