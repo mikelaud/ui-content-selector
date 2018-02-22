@@ -5,14 +5,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.ToolBar;
 
-public class UiContentSelector extends StackPane {
+public class UiContentSelector extends BorderPane {
 
 	private ImageView createImageView(String aName) {
 		return new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(aName)));
@@ -56,12 +58,22 @@ public class UiContentSelector extends StackPane {
 		return accordion;
 	}
 
+	private ToolBar newToolBar() {
+		return new ToolBar(
+			new Button("Close All"),
+			new Button("Open Book")
+		);
+	}
+	
 	public UiContentSelector() {
 		final Accordion accordion = newAccordion();
 		UiGallery g = new UiGallery();
 		g.getImageViews().add(createImageView("Margaret_Hamilton.png"));
-		getChildren().add(g);
-		getChildren().add(accordion);
+		StackPane stackPane = new StackPane();
+		stackPane.getChildren().add(g);
+		stackPane.getChildren().add(accordion);
+		setCenter(stackPane);
+		setTop(newToolBar());
 	}
 
 }
