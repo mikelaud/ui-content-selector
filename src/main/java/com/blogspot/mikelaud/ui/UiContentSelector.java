@@ -16,8 +16,16 @@ import javafx.scene.control.ToolBar;
 
 public class UiContentSelector extends BorderPane {
 
-	private ImageView createImageView(String aName) {
-		return new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(aName)));
+	private final Button BUTTON_CLOSE_ALL;
+	private final Button BUTTON_OPEN_LIBRARY;
+	private final ToolBar TOOL_BAR;
+	private final Accordion ACCORDION;
+	
+	private ImageView newImageView(String aFileName) {
+		final Image image = new Image(getClass().getClassLoader().getResourceAsStream(aFileName));
+		final ImageView imageView = new ImageView(image);
+		imageView.setSmooth(true);
+		return imageView;
 	}
 	
 	private TitledPane newTitledPane(String aTitle) {
@@ -50,30 +58,54 @@ public class UiContentSelector extends BorderPane {
 		return pane;
 	}
 
-	private Accordion newAccordion() {
-		final Accordion accordion = new Accordion();
-		accordion.getPanes().add(newTitledPane("Test 1"));
-		accordion.getPanes().add(newTitledPane("Test 2"));
-		accordion.getPanes().add(newTitledPane("Test 3"));
-		return accordion;
+	private void buildButtonCloseAll() {
+		BUTTON_CLOSE_ALL.setText("Close All");
 	}
 
-	private ToolBar newToolBar() {
-		return new ToolBar(
-			new Button("Close All"),
-			new Button("Open Book")
-		);
+	private void buildButtonOpenLibrary() {
+		BUTTON_OPEN_LIBRARY.setText("Open Library");
 	}
-	
+
+	private void buildToolBar() {
+		TOOL_BAR.getItems().add(BUTTON_CLOSE_ALL);
+		TOOL_BAR.getItems().add(BUTTON_OPEN_LIBRARY);
+	}
+
+	private void buidAccordion() {
+		ACCORDION.getPanes().add(newTitledPane("Test 1"));
+		ACCORDION.getPanes().add(newTitledPane("Test 2"));
+		ACCORDION.getPanes().add(newTitledPane("Test 3"));
+	}
+
+	private void buildUi() {
+		{	// buttons
+			buildButtonCloseAll();
+			buildButtonOpenLibrary();
+		}
+		buildToolBar();
+		buidAccordion();
+	}
+
 	public UiContentSelector() {
-		final Accordion accordion = newAccordion();
+		BUTTON_CLOSE_ALL = new Button();
+		BUTTON_OPEN_LIBRARY = new Button();
+		TOOL_BAR = new ToolBar();
+		ACCORDION = new Accordion();
+		//
+		buildUi();
+		//
 		UiGallery g = new UiGallery();
-		g.getImageViews().add(createImageView("Margaret_Hamilton.png"));
+		g.getImageViews().add(newImageView("Margaret_Hamilton.png"));
 		StackPane stackPane = new StackPane();
 		stackPane.getChildren().add(g);
-		stackPane.getChildren().add(accordion);
+		stackPane.getChildren().add(ACCORDION);
 		setCenter(stackPane);
-		setTop(newToolBar());
+		setTop(TOOL_BAR);
 	}
 
+	public Button getButtonCloseAll() { return BUTTON_CLOSE_ALL; }
+	public Button getButtonOpenLibrary() { return BUTTON_OPEN_LIBRARY; }
+	public ToolBar getToolBar() { return TOOL_BAR; }
+	public Accordion getAccordion() { return ACCORDION; }
+	
 }
