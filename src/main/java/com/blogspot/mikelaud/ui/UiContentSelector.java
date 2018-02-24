@@ -2,17 +2,11 @@ package com.blogspot.mikelaud.ui;
 
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
-import javafx.scene.control.TitledPane;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.TreeView;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.ToolBar;
 
 public class UiContentSelector extends BorderPane {
 
@@ -32,34 +26,10 @@ public class UiContentSelector extends BorderPane {
 		return imageView;
 	}
 	
-	private TitledPane newTitledPane(String aTitle) {
-		final TitledPane pane = new TitledPane();
-		pane.setText(aTitle);
-		final ToggleGroup group = new ToggleGroup();
-
-		ToggleButton tb1 = new ToggleButton("Book");
-		tb1.setToggleGroup(group);
-		tb1.setSelected(true);
-		ToggleButton tb2 = new ToggleButton("Chapter");
-		tb2.setToggleGroup(group);
-		
-		HBox box = new HBox();
-		Button tb3 = new Button("x");
-		box.getChildren().add(tb3);
-		box.getChildren().add(tb1);
-		box.getChildren().add(tb2);
-
-		pane.setGraphic(box);
-		TreeView<String> treeView = new TreeView<>();
-		TreeItem<String> root = new TreeItem<>("Library");
-		root.setExpanded(true);
-		root.getChildren().add(new TreeItem<>("Book 1"));
-		root.getChildren().add(new TreeItem<>("Book 2"));
-		root.getChildren().add(new TreeItem<>("Book 3"));
-		treeView.setRoot(root);
-		
-		pane.setContent(treeView);
-		return pane;
+	private UiContentNavigator newContentNavigator(String aTitle) {
+		final UiContentNavigator contentNavigator = new UiContentNavigator();
+		contentNavigator.setText(aTitle);
+		return contentNavigator;
 	}
 
 	private void buildButtonCloseAll() {
@@ -76,9 +46,9 @@ public class UiContentSelector extends BorderPane {
 	}
 
 	private void buidAccordion() {
-		ACCORDION.getPanes().add(newTitledPane("Test 1"));
-		ACCORDION.getPanes().add(newTitledPane("Test 2"));
-		ACCORDION.getPanes().add(newTitledPane("Test 3"));
+		ACCORDION.getPanes().add(newContentNavigator("Test 1"));
+		ACCORDION.getPanes().add(newContentNavigator("Test 2"));
+		ACCORDION.getPanes().add(newContentNavigator("Test 3"));
 	}
 
 	private void buidAccordionImage() {
