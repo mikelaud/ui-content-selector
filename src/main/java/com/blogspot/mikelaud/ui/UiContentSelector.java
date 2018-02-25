@@ -1,7 +1,5 @@
 package com.blogspot.mikelaud.ui;
 
-import com.blogspot.mikelaud.ui.UiGallery;
-
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;

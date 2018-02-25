@@ -4,6 +4,7 @@ import com.blogspot.mikelaud.ui.UiContentNavigator;
 import com.blogspot.mikelaud.ui.UiContentSelector;
 import com.blogspot.mikelaud.ui.UiGallery;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.layout.StackPane;
 
 public class UiContentSelectorImpl extends UiContentSelector {
 
+	private final Provider<UiContentNavigator> UI_CONTENT_NAVIGATOR_PROVIDER;
 	// buttons
 	private final Button BUTTON_CLOSE_ALL;
 	private final Button BUTTON_OPEN_LIBRARY;
@@ -30,10 +32,11 @@ public class UiContentSelectorImpl extends UiContentSelector {
 		return imageView;
 	}
 	
-	private UiContentNavigator newContentNavigator(String aTitle) {
-		final UiContentNavigator contentNavigator = new UiContentNavigator(ACCORDION);
-		contentNavigator.setText(aTitle);
-		return contentNavigator;
+	private UiContentNavigator newUiContentNavigator(String aTitle) {
+		final UiContentNavigator uiContentNavigator = UI_CONTENT_NAVIGATOR_PROVIDER.get();
+		uiContentNavigator.uiContentSelectorProperty().set(this);
+		uiContentNavigator.setText(aTitle);
+		return uiContentNavigator;
 	}
 
 	private void buildButtonCloseAll() {
@@ -46,7 +49,7 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	private void buildButtonOpenLibrary() {
 		BUTTON_OPEN_LIBRARY.setText("Open Library");
 		BUTTON_OPEN_LIBRARY.setOnAction(actionEvent -> {
-			ACCORDION.getPanes().add(newContentNavigator("Book N"));
+			ACCORDION.getPanes().add(newUiContentNavigator("Book N"));
 		});
 	}
 
@@ -56,9 +59,9 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	}
 
 	private void buidAccordion() {
-		ACCORDION.getPanes().add(newContentNavigator("Test 1"));
-		ACCORDION.getPanes().add(newContentNavigator("Test 2"));
-		ACCORDION.getPanes().add(newContentNavigator("Test 3"));
+		ACCORDION.getPanes().add(newUiContentNavigator("Test 1"));
+		ACCORDION.getPanes().add(newUiContentNavigator("Test 2"));
+		ACCORDION.getPanes().add(newUiContentNavigator("Test 3"));
 	}
 
 	private void buidAccordionImage() {
@@ -86,7 +89,8 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	}
 
 	@Inject
-	private UiContentSelectorImpl() {
+	private UiContentSelectorImpl(Provider<UiContentNavigator> aUiContentNavigatorProvider) {
+		UI_CONTENT_NAVIGATOR_PROVIDER = aUiContentNavigatorProvider;
 		{	// buttons
 			BUTTON_CLOSE_ALL = new Button();
 			BUTTON_OPEN_LIBRARY = new Button();
