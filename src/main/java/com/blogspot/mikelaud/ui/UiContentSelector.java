@@ -38,6 +38,9 @@ public class UiContentSelector extends BorderPane {
 
 	private void buildButtonOpenLibrary() {
 		BUTTON_OPEN_LIBRARY.setText("Open Library");
+		BUTTON_OPEN_LIBRARY.setOnAction(actionEvent -> {
+			ACCORDION.getPanes().add(newContentNavigator("Book N"));
+		});
 	}
 
 	private void buildButtonsBar() {
