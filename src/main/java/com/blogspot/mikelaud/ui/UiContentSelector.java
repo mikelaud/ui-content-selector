@@ -14,7 +14,7 @@ public abstract class UiContentSelector extends BorderPane {
 	public abstract ToolBar getButtonsBar();
 	// accordion
 	public abstract Accordion getAccordion();
-	public abstract UiGallery getAccordionImage();
+	public abstract UiImage getAccordionImage();
 	public abstract StackPane getAccordionPane();
 
 }

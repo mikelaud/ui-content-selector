@@ -2,7 +2,7 @@ package com.blogspot.mikelaud.ui.impl;
 
 import com.blogspot.mikelaud.ui.UiContentNavigator;
 import com.blogspot.mikelaud.ui.UiContentSelector;
-import com.blogspot.mikelaud.ui.UiGallery;
+import com.blogspot.mikelaud.ui.UiImage;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -10,7 +10,6 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 public class UiContentSelectorImpl extends UiContentSelector {
@@ -22,15 +21,8 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	private final ToolBar BOOTONS_BAR;
 	// accordion
 	private final Accordion ACCORDION;
-	private final UiGallery ACCORDION_IMAGE;
+	private final UiImage ACCORDION_IMAGE;
 	private final StackPane ACCORDION_PANE;
-	
-	private ImageView newImageView(String aFileName) {
-		final Image image = new Image(getClass().getClassLoader().getResourceAsStream(aFileName));
-		final ImageView imageView = new ImageView(image);
-		imageView.setSmooth(true);
-		return imageView;
-	}
 	
 	private UiContentNavigator newUiContentNavigator(String aTitle) {
 		final UiContentNavigator uiContentNavigator = UI_CONTENT_NAVIGATOR_PROVIDER.get();
@@ -65,7 +57,8 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	}
 
 	private void buidAccordionImage() {
-		ACCORDION_IMAGE.getImageViews().add(newImageView("Margaret_Hamilton.png"));
+		final Image image = new Image(getClass().getClassLoader().getResourceAsStream("Margaret_Hamilton.png"));
+		ACCORDION_IMAGE.getImageView().setImage(image);
 	}
 
 	private void buidAccordionPane() {
@@ -89,7 +82,10 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	}
 
 	@Inject
-	private UiContentSelectorImpl(Provider<UiContentNavigator> aUiContentNavigatorProvider) {
+	private UiContentSelectorImpl
+	(	Provider<UiContentNavigator> aUiContentNavigatorProvider
+	,	UiImage aUiImage
+	) {
 		UI_CONTENT_NAVIGATOR_PROVIDER = aUiContentNavigatorProvider;
 		{	// buttons
 			BUTTON_CLOSE_ALL = new Button();
@@ -98,7 +94,7 @@ public class UiContentSelectorImpl extends UiContentSelector {
 		BOOTONS_BAR = new ToolBar();
 		{	// accordion
 			ACCORDION = new Accordion();
-			ACCORDION_IMAGE = new UiGallery();
+			ACCORDION_IMAGE = aUiImage;
 			ACCORDION_PANE = new StackPane();
 		}
 		buildUi();
@@ -110,7 +106,7 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	@Override public ToolBar getButtonsBar() { return BOOTONS_BAR; }
 	// accordion
 	@Override public Accordion getAccordion() { return ACCORDION; }
-	@Override public UiGallery getAccordionImage() { return ACCORDION_IMAGE; }
+	@Override public UiImage getAccordionImage() { return ACCORDION_IMAGE; }
 	@Override public StackPane getAccordionPane() { return ACCORDION_PANE; }
 	
 }
