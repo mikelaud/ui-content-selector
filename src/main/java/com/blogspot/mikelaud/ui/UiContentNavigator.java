@@ -26,7 +26,6 @@ public class UiContentNavigator extends TitledPane {
 
 		ToggleButton tb1 = new ToggleButton("Book");
 		tb1.setToggleGroup(group);
-		tb1.setSelected(true);
 		ToggleButton tb2 = new ToggleButton("Chapter");
 		tb2.setToggleGroup(group);
 		
