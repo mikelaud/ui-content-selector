@@ -27,13 +27,16 @@ public class UiContentSelector extends BorderPane {
 	}
 	
 	private UiContentNavigator newContentNavigator(String aTitle) {
-		final UiContentNavigator contentNavigator = new UiContentNavigator();
+		final UiContentNavigator contentNavigator = new UiContentNavigator(ACCORDION);
 		contentNavigator.setText(aTitle);
 		return contentNavigator;
 	}
 
 	private void buildButtonCloseAll() {
 		BUTTON_CLOSE_ALL.setText("Close All");
+		BUTTON_CLOSE_ALL.setOnAction(actionEvent -> {
+			ACCORDION.getPanes().clear();
+		});
 	}
 
 	private void buildButtonOpenLibrary() {
