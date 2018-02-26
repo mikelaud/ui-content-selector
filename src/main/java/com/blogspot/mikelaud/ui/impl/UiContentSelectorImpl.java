@@ -79,6 +79,7 @@ public class UiContentSelectorImpl extends UiContentSelector {
 		}
 		setTop(BOOTONS_BAR);
 		setCenter(ACCORDION_PANE);
+		setMinSize(0, 0);
 	}
 
 	@Inject

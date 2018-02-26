@@ -12,9 +12,9 @@ public class UiContentSelectorDemo extends Application {
 	@Override
 	public void start(Stage aPrimaryStage) throws Exception {
 		final Injector injector = Guice.createInjector(new UiContentSelectorModule());
-		final UiContentSelector uiContentSelector = injector.getInstance(UiContentSelector.class);
+		final UiContentViewer uiContentViewer = injector.getInstance(UiContentViewer.class);
 		//
-		final Scene scene = new Scene(uiContentSelector, 600, 800);
+		final Scene scene = new Scene(uiContentViewer, 1280, 720);
 		aPrimaryStage.setTitle(UiContentSelectorDemo.class.getSimpleName());
 		aPrimaryStage.setScene(scene);
 		aPrimaryStage.sizeToScene();
