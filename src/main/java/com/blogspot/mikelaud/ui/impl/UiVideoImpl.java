@@ -9,9 +9,11 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import javafx.scene.media.MediaView;
+import javafx.scene.shape.Rectangle;
 
 public class UiVideoImpl extends UiVideo {
 
+	private final Rectangle CLIP;
 	private final ObjectProperty<MediaView> MEDIA_VIEW;
 	private final DoubleProperty VOLUME_ZOOM;
 	private final DoubleProperty VOLUME;
@@ -22,11 +24,16 @@ public class UiVideoImpl extends UiVideo {
 	}
 
 	private void buildUi() {
+		CLIP.widthProperty().bind(widthProperty());
+		CLIP.heightProperty().bind(heightProperty());
+		setClip(CLIP);
+		//
 		setMinSize(0, 0);
 	}
 
 	@Inject
 	private UiVideoImpl() {
+		CLIP = new Rectangle();
 		MEDIA_VIEW = new SimpleObjectProperty<>(null);
 		VOLUME_ZOOM = new SimpleDoubleProperty(0.0005);
 		VOLUME = new SimpleDoubleProperty(0);

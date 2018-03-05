@@ -10,8 +10,8 @@ import javafx.scene.shape.Rectangle;
 
 public class UiImageImpl extends UiImage {
 
-	private final ImageView IMAGE_VIEW;
 	private final Rectangle CLIP;
+	private final ImageView IMAGE_VIEW;
 	
 	@Override
 	protected void layoutChildren() {
@@ -63,20 +63,20 @@ public class UiImageImpl extends UiImage {
 	}
 
 	private void buildUi() {
-		IMAGE_VIEW.setSmooth(true);
-		getChildren().add(IMAGE_VIEW);
-		//
 		CLIP.widthProperty().bind(widthProperty());
 		CLIP.heightProperty().bind(heightProperty());
 		setClip(CLIP);
+		//
+		IMAGE_VIEW.setSmooth(true);
+		getChildren().add(IMAGE_VIEW);
 		//
 		setMinSize(0, 0);
 	}
 
 	@Inject
 	private UiImageImpl() {
-		IMAGE_VIEW = new ImageView();
 		CLIP = new Rectangle();
+		IMAGE_VIEW = new ImageView();
 		buildUi();
 	}
 
