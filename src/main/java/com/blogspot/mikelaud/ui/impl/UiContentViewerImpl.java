@@ -16,6 +16,7 @@ public class UiContentViewerImpl extends UiContentViewer {
 		stackPane.getChildren().add(new Button("Button"));
 		getItems().addAll(stackPane, UI_CONTENT_SELECTOR);
 		setDividerPositions(0.6);
+		setMinSize(0, 0);
 	}
 
 	@Inject

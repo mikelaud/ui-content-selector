@@ -62,16 +62,22 @@ public class UiImageImpl extends UiImage {
 		IMAGE_VIEW.setFitHeight(windowHeight);
 	}
 
-	@Inject
-	private UiImageImpl() {
-		IMAGE_VIEW = new ImageView();
+	private void buildUi() {
 		IMAGE_VIEW.setSmooth(true);
 		getChildren().add(IMAGE_VIEW);
 		//
-		CLIP = new Rectangle();
 		CLIP.widthProperty().bind(widthProperty());
 		CLIP.heightProperty().bind(heightProperty());
 		setClip(CLIP);
+		//
+		setMinSize(0, 0);
+	}
+
+	@Inject
+	private UiImageImpl() {
+		IMAGE_VIEW = new ImageView();
+		CLIP = new Rectangle();
+		buildUi();
 	}
 
 	@Override public ImageView getImageView() { return IMAGE_VIEW; }

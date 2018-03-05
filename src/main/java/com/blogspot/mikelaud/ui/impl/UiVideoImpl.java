@@ -21,11 +21,16 @@ public class UiVideoImpl extends UiVideo {
 		// void
 	}
 
+	private void buildUi() {
+		setMinSize(0, 0);
+	}
+
 	@Inject
 	private UiVideoImpl() {
 		MEDIA_VIEW = new SimpleObjectProperty<>(null);
 		VOLUME_ZOOM = new SimpleDoubleProperty(0.0005);
 		VOLUME = new SimpleDoubleProperty(0);
+		buildUi();
 	}
 
 	@Override public ObjectProperty<MediaView> mediaViewProperty() { return MEDIA_VIEW; }
