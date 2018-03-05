@@ -93,6 +93,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		}
 		setGraphic(BUTTONS_BOX);
 		setContent(TREE_VIEW);
+		setMinSize(0, 0);
 	}
 
 	@Inject
