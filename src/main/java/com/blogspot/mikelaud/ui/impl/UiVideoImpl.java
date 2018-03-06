@@ -8,6 +8,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
 
@@ -38,6 +40,26 @@ public class UiVideoImpl extends UiVideo {
 		VOLUME_ZOOM = new SimpleDoubleProperty(0.0005);
 		VOLUME = new SimpleDoubleProperty(0);
 		buildUi();
+	}
+
+	public void closeMedia() {
+		// void
+	}
+			
+	public void openMedia(String aMediaUri) {
+		if (null == aMediaUri) return;
+		closeMedia();
+		//
+		final Media media = new Media(aMediaUri);
+		final MediaPlayer mediaPlayer = new MediaPlayer(media);
+		final MediaView mediaView = new MediaView();
+		mediaView.setMediaPlayer(mediaPlayer);
+		//
+		mediaView.setPreserveRatio(true);
+		mediaView.setSmooth(true);
+		//
+		mediaView.fitHeightProperty().bind(heightProperty());
+		mediaView.fitWidthProperty().bind(widthProperty());
 	}
 
 	@Override public ObjectProperty<MediaView> mediaViewProperty() { return MEDIA_VIEW; }
