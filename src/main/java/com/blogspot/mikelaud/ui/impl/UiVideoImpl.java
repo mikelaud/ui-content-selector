@@ -7,7 +7,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleDoubleProperty;
-
+import javafx.geometry.Rectangle2D;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -22,7 +22,58 @@ public class UiVideoImpl extends UiVideo {
 
 	@Override
 	protected void layoutChildren() {
-		// void
+		final MediaView mediaView = MEDIA_VIEW.get();
+		if (null == mediaView) return;
+		//
+		final MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
+		if (null == mediaPlayer) return;
+		//
+		final Media media = mediaPlayer.getMedia();
+		if (null == media) return;
+		//
+		final double imageWidth = media.getWidth();
+		final double imageHeight = media.getHeight();
+		if (imageHeight <= 0) return;
+		//
+		final double windowWidth = getWidth();
+		final double windowHeight = getHeight();
+		if (windowHeight <= 0) return;
+		//
+		final double imageRation = imageWidth / imageHeight;
+		final double windowRation = windowWidth / windowHeight;
+		if (windowRation <= 0) return;
+		//
+		double viewWidth;
+		double viewHeigth;
+		//
+		double viewX;
+		double viewY;
+		//
+		if (windowRation > imageRation) {
+			viewWidth = imageWidth;
+			viewHeigth = imageWidth / windowRation;
+			//
+			final double extraHeight = imageHeight - viewHeigth;
+			//
+			viewX = 0;
+			viewY = extraHeight / 2;
+		}
+		else {
+			viewWidth = imageHeight * windowRation;
+			viewHeigth = imageHeight;
+			//
+			final double extraWidth = imageWidth - viewWidth;
+			//
+			viewX = extraWidth / 2;
+			viewY = 0;
+		}
+		//
+		final Rectangle2D viewport = new Rectangle2D(viewX, viewY, viewWidth, viewHeigth);
+		mediaView.setViewport(viewport);
+		//
+		System.out.println(String.format("mediaView: %.0fx%.0f", windowWidth, windowHeight));
+		mediaView.setFitWidth(windowWidth);
+		mediaView.setFitHeight(windowHeight);
 	}
 
 	private void buildUi() {
