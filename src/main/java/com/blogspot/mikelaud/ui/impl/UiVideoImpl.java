@@ -71,7 +71,6 @@ public class UiVideoImpl extends UiVideo {
 		final Rectangle2D viewport = new Rectangle2D(viewX, viewY, viewWidth, viewHeigth);
 		mediaView.setViewport(viewport);
 		//
-		System.out.println(String.format("mediaView: %.0fx%.0f", windowWidth, windowHeight));
 		mediaView.setFitWidth(windowWidth);
 		mediaView.setFitHeight(windowHeight);
 	}
@@ -97,9 +96,6 @@ public class UiVideoImpl extends UiVideo {
 	public void closeMedia() {
 		final MediaView mediaView = MEDIA_VIEW.get();
 		if (null == mediaView) return;
-		//
-		mediaView.fitHeightProperty().unbind();
-		mediaView.fitWidthProperty().unbind();
 		//
 		final MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
 		if (null != mediaPlayer) {
@@ -129,9 +125,6 @@ public class UiVideoImpl extends UiVideo {
 		//
 		mediaView.setPreserveRatio(true);
 		mediaView.setSmooth(true);
-		//
-		mediaView.fitHeightProperty().bind(heightProperty());
-		mediaView.fitWidthProperty().bind(widthProperty());
 		//
 		MEDIA_VIEW.set(mediaView);
 		getChildren().add(mediaView);
