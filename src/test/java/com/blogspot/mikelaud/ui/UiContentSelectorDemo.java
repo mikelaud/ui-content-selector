@@ -20,6 +20,9 @@ public class UiContentSelectorDemo extends Application {
 		aPrimaryStage.sizeToScene();
 		aPrimaryStage.centerOnScreen();
 		aPrimaryStage.show();
+		//
+		final String mediaUri = getClass().getClassLoader().getResource("video.mp4").toExternalForm();
+		uiContentViewer.getUiVideo().openMedia(mediaUri);
 	}
 
 	public static void main(String[] aArguments) {

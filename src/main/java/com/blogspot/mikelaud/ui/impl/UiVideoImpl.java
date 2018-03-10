@@ -10,8 +10,11 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+import javafx.scene.input.MouseButton;
 
 public class UiVideoImpl extends UiVideo {
 
@@ -128,6 +131,29 @@ public class UiVideoImpl extends UiVideo {
 		//
 		MEDIA_VIEW.set(mediaView);
 		getChildren().add(mediaView);
+		//
+		mediaPlayer.volumeProperty().bind(VOLUME);
+		mediaView.setOnScroll(event -> VOLUME.add(event.getDeltaY() * VOLUME_ZOOM.get()));
+		//
+		mediaView.setOnMouseClicked(event -> {
+			final MouseButton mouseButton = event.getButton();
+			if (MouseButton.SECONDARY == mouseButton) {
+				if (Status.PLAYING == mediaPlayer.getStatus()) {
+					mediaPlayer.pause();
+				}
+				else {
+					mediaPlayer.play();
+				}
+			}
+			else if (MouseButton.PRIMARY == mouseButton) {
+				final Duration duration = media.getDuration();
+				final Duration newPosition = duration.divide(getWidth()).multiply(event.getX());
+				mediaPlayer.seek(newPosition);
+				if (Status.PLAYING != mediaPlayer.getStatus()) {
+					mediaPlayer.play();
+				}
+			}
+		});
 	}
 
 	@Override public ReadOnlyObjectProperty<MediaView> mediaViewProperty() { return MEDIA_VIEW.getReadOnlyProperty(); }

@@ -11,8 +11,6 @@ public class UiContentViewerImpl extends UiContentViewer {
 	private UiVideo UI_VIDEO;
 
 	private void buildUi() {
-		final String mediaUri = getClass().getClassLoader().getResource("video.mp4").toExternalForm();
-		UI_VIDEO.setOnMouseClicked(e -> UI_VIDEO.openMedia(mediaUri));
 		getItems().addAll(UI_VIDEO, UI_CONTENT_SELECTOR);
 		setDividerPositions(0.6);
 		setMinSize(0, 0);
@@ -29,5 +27,6 @@ public class UiContentViewerImpl extends UiContentViewer {
 	}
 
 	@Override public UiContentSelector getUiContentSelector() { return UI_CONTENT_SELECTOR; }
+	@Override public UiVideo getUiVideo() { return UI_VIDEO; }
 
 }
