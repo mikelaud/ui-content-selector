@@ -21,7 +21,7 @@ public class UiContentSelectorDemo extends Application {
 		aPrimaryStage.centerOnScreen();
 		aPrimaryStage.show();
 		//
-		final String mediaUri = getClass().getClassLoader().getResource("demo.mp4").toExternalForm();
+		final String mediaUri = getClass().getClassLoader().getResource("background.mp4").toExternalForm();
 		uiContentViewer.getUiVideo().openMedia(mediaUri);
 	}
 

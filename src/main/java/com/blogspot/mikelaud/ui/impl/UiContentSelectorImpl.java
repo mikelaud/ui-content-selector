@@ -57,7 +57,7 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	}
 
 	private void buidAccordionImage() {
-		final Image image = new Image(getClass().getClassLoader().getResourceAsStream("Margaret_Hamilton.png"));
+		final Image image = new Image(getClass().getClassLoader().getResourceAsStream("background.png"));
 		ACCORDION_IMAGE.getImageView().setImage(image);
 	}
 
