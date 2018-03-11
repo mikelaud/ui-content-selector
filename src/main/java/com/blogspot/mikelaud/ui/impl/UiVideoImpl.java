@@ -7,6 +7,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -15,6 +16,8 @@ import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 
 public class UiVideoImpl extends UiVideo {
 
@@ -78,6 +81,32 @@ public class UiVideoImpl extends UiVideo {
 		mediaView.setFitHeight(windowHeight);
 	}
 
+	private EventHandler<ScrollEvent> createOnScroll(DoubleProperty aVolume, DoubleProperty aVolumeZoom) {
+		return event -> aVolume.set(aVolume.get() + event.getDeltaY() * aVolumeZoom.get());
+	}
+
+	private EventHandler<MouseEvent> createOnMouseClicked(Media aMedia, MediaPlayer aMediaPlayer) {
+		return event -> {
+			final MouseButton mouseButton = event.getButton();
+			if (MouseButton.SECONDARY == mouseButton) {
+				if (Status.PLAYING == aMediaPlayer.getStatus()) {
+					aMediaPlayer.pause();
+				}
+				else {
+					aMediaPlayer.play();
+				}
+			}
+			else if (MouseButton.PRIMARY == mouseButton) {
+				final Duration duration = aMedia.getDuration();
+				final Duration newPosition = duration.divide(getWidth()).multiply(event.getX());
+				aMediaPlayer.seek(newPosition);
+				if (Status.PLAYING != aMediaPlayer.getStatus()) {
+					aMediaPlayer.play();
+				}
+			}
+		};
+	}
+
 	private void buildUi() {
 		CLIP.widthProperty().bind(widthProperty());
 		CLIP.heightProperty().bind(heightProperty());
@@ -133,27 +162,9 @@ public class UiVideoImpl extends UiVideo {
 		getChildren().add(mediaView);
 		//
 		mediaPlayer.volumeProperty().bind(VOLUME);
-		mediaView.setOnScroll(event -> VOLUME.add(event.getDeltaY() * VOLUME_ZOOM.get()));
-		//
-		mediaView.setOnMouseClicked(event -> {
-			final MouseButton mouseButton = event.getButton();
-			if (MouseButton.SECONDARY == mouseButton) {
-				if (Status.PLAYING == mediaPlayer.getStatus()) {
-					mediaPlayer.pause();
-				}
-				else {
-					mediaPlayer.play();
-				}
-			}
-			else if (MouseButton.PRIMARY == mouseButton) {
-				final Duration duration = media.getDuration();
-				final Duration newPosition = duration.divide(getWidth()).multiply(event.getX());
-				mediaPlayer.seek(newPosition);
-				if (Status.PLAYING != mediaPlayer.getStatus()) {
-					mediaPlayer.play();
-				}
-			}
-		});
+		mediaView.setOnScroll(createOnScroll(VOLUME, VOLUME_ZOOM));
+		mediaView.setOnMouseClicked(createOnMouseClicked(media, mediaPlayer));
+		//mediaPlayer.setOnReady(() -> mediaPlayer.play());
 	}
 
 	@Override public ReadOnlyObjectProperty<MediaView> mediaViewProperty() { return MEDIA_VIEW.getReadOnlyProperty(); }
