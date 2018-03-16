@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
 
 public abstract class UiContentNavigator extends TitledPane {
@@ -20,8 +18,5 @@ public abstract class UiContentNavigator extends TitledPane {
 	// buttons groups
 	public abstract ToggleGroup getButtonsGroup();
 	public abstract HBox getButtonsBox();
-	// tree
-	public abstract TreeItem<String> getTreeRoot();
-	public abstract TreeView<String> getTreeView();
 
 }

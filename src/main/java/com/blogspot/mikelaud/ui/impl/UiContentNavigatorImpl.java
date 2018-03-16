@@ -2,7 +2,9 @@ package com.blogspot.mikelaud.ui.impl;
 
 import com.blogspot.mikelaud.ui.UiContentNavigator;
 import com.blogspot.mikelaud.ui.UiContentSelector;
+import com.blogspot.mikelaud.ui.UiLibrary;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -10,12 +12,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
 
 public class UiContentNavigatorImpl extends UiContentNavigator {
 
+	private final Provider<UiLibrary> UI_LIBRARY_PROVIDER;
 	private final ObjectProperty<UiContentSelector> UI_CONTENT_SELECTOR;
 	// buttons
 	private final ToggleButton BUTTON_BOOK;
@@ -24,9 +25,6 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 	// buttons groups
 	private final ToggleGroup BUTTONS_GROUP;
 	private final HBox BUTTONS_BOX;
-	// tree
-	private final TreeItem<String> TREE_ROOT;
-	private final TreeView<String> TREE_VIEW;
 
 	private void closeTitledPane() {
 		final UiContentSelector uiContentSelector = UI_CONTENT_SELECTOR.get();
@@ -63,20 +61,6 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		BUTTONS_BOX.getChildren().add(BUTTON_CHAPTER);
 	}
 
-	private void buildTreeRoot() {
-		TREE_ROOT.setValue("Library");
-		TREE_ROOT.setExpanded(true);
-		{	// root items
-			TREE_ROOT.getChildren().add(new TreeItem<>("Book 1"));
-			TREE_ROOT.getChildren().add(new TreeItem<>("Book 2"));
-			TREE_ROOT.getChildren().add(new TreeItem<>("Book 3"));
-		}
-	}
-
-	private void buildTreeView() {
-		TREE_VIEW.setRoot(TREE_ROOT);
-	}
-
 	private void buildUi() {
 		{	// buttons
 			buildButtonClose();
@@ -87,17 +71,16 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 			buildButtonsGroup();
 			buildButtonsBox();
 		}
-		{	// tree
-			buildTreeRoot();
-			buildTreeView();
-		}
 		setGraphic(BUTTONS_BOX);
-		setContent(TREE_VIEW);
+		setContent(UI_LIBRARY_PROVIDER.get());
 		setMinSize(0, 0);
 	}
 
 	@Inject
-	private UiContentNavigatorImpl() {
+	private UiContentNavigatorImpl
+	(	Provider<UiLibrary> aUiLibraryProvider
+	) {
+		UI_LIBRARY_PROVIDER = aUiLibraryProvider;
 		UI_CONTENT_SELECTOR = new SimpleObjectProperty<>(null);
 		{	// buttons
 			BUTTON_CLOSE = new Button();
@@ -107,10 +90,6 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		{	// buttons groups
 			BUTTONS_GROUP = new ToggleGroup();
 			BUTTONS_BOX = new HBox();
-		}
-		{	// tree
-			TREE_ROOT = new TreeItem<>();
-			TREE_VIEW = new TreeView<>();
 		}
 		buildUi();
 	}
@@ -123,8 +102,5 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 	// buttons groups
 	@Override public ToggleGroup getButtonsGroup() { return BUTTONS_GROUP; }
 	@Override public HBox getButtonsBox() { return BUTTONS_BOX; }
-	// tree
-	@Override public TreeItem<String> getTreeRoot() { return TREE_ROOT; }
-	@Override public TreeView<String> getTreeView() { return TREE_VIEW; }
 
 }
