@@ -41,10 +41,12 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 
 	private void buildButtonBook() {
 		BUTTON_BOOK.setText("Book");
+		BUTTON_BOOK.setOnAction(actionEvent -> setContent(new Button("Book")));
 	}
 
 	private void buildButtonChapter() {
 		BUTTON_CHAPTER.setText("Chapter");
+		BUTTON_CHAPTER.setOnAction(actionEvent -> setContent(new Button("Chapter")));
 	}
 
 	private void buildButtonsGroup() {
