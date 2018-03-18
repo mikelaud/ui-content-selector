@@ -10,6 +10,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
@@ -41,20 +42,34 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 
 	private void buildButtonBook() {
 		BUTTON_BOOK.setText("Book");
-		BUTTON_BOOK.setOnAction(actionEvent -> setContent(new Button("Book")));
+		//BUTTON_BOOK.setOnAction(actionEvent -> setContent(new Button("Book")));
 	}
 
 	private void buildButtonChapter() {
 		BUTTON_CHAPTER.setText("Chapter");
-		BUTTON_CHAPTER.setOnAction(actionEvent -> setContent(new Button("Chapter")));
+		//BUTTON_CHAPTER.setOnAction(actionEvent -> setContent(new Button("Chapter")));
 	}
 
 	private void buildButtonsGroup() {
 		{	// buttons
+			new ToggleButton().setToggleGroup(BUTTONS_GROUP);
 			BUTTON_BOOK.setToggleGroup(BUTTONS_GROUP);
 			BUTTON_CHAPTER.setToggleGroup(BUTTONS_GROUP);
 		}
 		BUTTONS_GROUP.selectToggle(null);
+		BUTTON_CHAPTER.setOnAction(actionEvent -> {
+			final Toggle selectedToggle = BUTTONS_GROUP.getSelectedToggle();
+			System.out.println("Debug selected toggle: " + selectedToggle);
+			if (selectedToggle == BUTTON_BOOK) {
+				setContent(new Button("Book 1"));
+			}
+			else if (selectedToggle == BUTTON_CHAPTER) {
+				setContent(new Button("Chapter 1"));
+			}
+			else if (selectedToggle == null) {
+				setContent(new Button("Library 1"));
+			}
+		});
 	}
 
 	private void buildButtonsBox() {
