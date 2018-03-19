@@ -4,7 +4,6 @@ import com.blogspot.mikelaud.ui.UiContentNavigator;
 import com.blogspot.mikelaud.ui.UiContentSelector;
 import com.blogspot.mikelaud.ui.UiLibrary;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -17,7 +16,7 @@ import javafx.scene.layout.HBox;
 
 public class UiContentNavigatorImpl extends UiContentNavigator {
 
-	private final Provider<UiLibrary> UI_LIBRARY_PROVIDER;
+	private final UiLibrary UI_LIBRARY;
 	private final ObjectProperty<UiContentSelector> UI_CONTENT_SELECTOR;
 	// buttons
 	private final ToggleButton BUTTON_BOOK;
@@ -42,12 +41,10 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 
 	private void buildButtonBook() {
 		BUTTON_BOOK.setText("Book");
-		//BUTTON_BOOK.setOnAction(actionEvent -> setContent(new Button("Book")));
 	}
 
 	private void buildButtonChapter() {
 		BUTTON_CHAPTER.setText("Chapter");
-		//BUTTON_CHAPTER.setOnAction(actionEvent -> setContent(new Button("Chapter")));
 	}
 
 	private void buildButtonsGroup() {
@@ -67,7 +64,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 				setContent(new Button("Chapter 1"));
 			}
 			else if (selectedToggle == null) {
-				setContent(new Button("Library 1"));
+				setContent(UI_LIBRARY);
 			}
 		});
 	}
@@ -89,15 +86,15 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 			buildButtonsBox();
 		}
 		setGraphic(BUTTONS_BOX);
-		setContent(UI_LIBRARY_PROVIDER.get());
+		setContent(UI_LIBRARY);
 		setMinSize(0, 0);
 	}
 
 	@Inject
 	private UiContentNavigatorImpl
-	(	Provider<UiLibrary> aUiLibraryProvider
+	(	UiLibrary aUiLibrary
 	) {
-		UI_LIBRARY_PROVIDER = aUiLibraryProvider;
+		UI_LIBRARY = aUiLibrary;
 		UI_CONTENT_SELECTOR = new SimpleObjectProperty<>(null);
 		{	// buttons
 			BUTTON_CLOSE = new Button();
@@ -111,6 +108,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		buildUi();
 	}
 
+	@Override public UiLibrary getUiLibrary() { return UI_LIBRARY; }
 	@Override public ObjectProperty<UiContentSelector> uiContentSelectorProperty() { return UI_CONTENT_SELECTOR; }
 	// buttons
 	@Override public ToggleButton getButtonBook() { return BUTTON_BOOK; }
