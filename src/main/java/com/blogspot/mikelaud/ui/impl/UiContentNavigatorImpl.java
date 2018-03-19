@@ -57,7 +57,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 			BUTTON_CHAPTER.setToggleGroup(BUTTONS_GROUP);
 		}
 		BUTTONS_GROUP.selectToggle(null);
-		BUTTON_CHAPTER.setOnAction(actionEvent -> {
+		BUTTONS_GROUP.selectedToggleProperty().addListener(listener -> {
 			final Toggle selectedToggle = BUTTONS_GROUP.getSelectedToggle();
 			System.out.println("Debug selected toggle: " + selectedToggle);
 			if (selectedToggle == BUTTON_BOOK) {
