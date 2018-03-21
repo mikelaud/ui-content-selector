@@ -62,10 +62,10 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		BUTTONS_GROUP.selectedToggleProperty().addListener(listener -> {
 			final Toggle selectedToggle = BUTTONS_GROUP.getSelectedToggle();
 			if (selectedToggle == BUTTON_BOOK) {
-				setContent(new Button("Book 1"));
+				setContent(UI_BOOK);
 			}
 			else if (selectedToggle == BUTTON_CHAPTER) {
-				setContent(new Button("Chapter 1"));
+				setContent(UI_CHAPTER);
 			}
 			else if (selectedToggle == null) {
 				setContent(UI_LIBRARY);
