@@ -10,8 +10,11 @@ import javafx.scene.layout.HBox;
 
 public abstract class UiContentNavigator extends TitledPane {
 
-	public abstract UiLibrary getUiLibrary();
 	public abstract ObjectProperty<UiContentSelector> uiContentSelectorProperty();
+	// ui
+	public abstract UiLibrary getUiLibrary();
+	public abstract UiBook getUiBook();
+	public abstract UiChapter getUiChapter();
 	// buttons
 	public abstract ToggleButton getButtonBook();
 	public abstract ToggleButton getButtonChapter();

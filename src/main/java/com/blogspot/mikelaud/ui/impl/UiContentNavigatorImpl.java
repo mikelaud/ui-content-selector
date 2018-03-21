@@ -1,5 +1,7 @@
 package com.blogspot.mikelaud.ui.impl;
 
+import com.blogspot.mikelaud.ui.UiBook;
+import com.blogspot.mikelaud.ui.UiChapter;
 import com.blogspot.mikelaud.ui.UiContentNavigator;
 import com.blogspot.mikelaud.ui.UiContentSelector;
 import com.blogspot.mikelaud.ui.UiLibrary;
@@ -16,8 +18,11 @@ import javafx.scene.layout.HBox;
 
 public class UiContentNavigatorImpl extends UiContentNavigator {
 
-	private final UiLibrary UI_LIBRARY;
 	private final ObjectProperty<UiContentSelector> UI_CONTENT_SELECTOR;
+	// ui
+	private final UiLibrary UI_LIBRARY;
+	private final UiBook UI_BOOK;
+	private final UiChapter UI_CHAPTER;
 	// buttons
 	private final ToggleButton BUTTON_BOOK;
 	private final ToggleButton BUTTON_CHAPTER;
@@ -56,7 +61,6 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		BUTTONS_GROUP.selectToggle(null);
 		BUTTONS_GROUP.selectedToggleProperty().addListener(listener -> {
 			final Toggle selectedToggle = BUTTONS_GROUP.getSelectedToggle();
-			System.out.println("Debug selected toggle: " + selectedToggle);
 			if (selectedToggle == BUTTON_BOOK) {
 				setContent(new Button("Book 1"));
 			}
@@ -93,9 +97,14 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 	@Inject
 	private UiContentNavigatorImpl
 	(	UiLibrary aUiLibrary
+	,	UiBook aUiBook
+	,	UiChapter aUiChapter
 	) {
-		UI_LIBRARY = aUiLibrary;
 		UI_CONTENT_SELECTOR = new SimpleObjectProperty<>(null);
+		// ui
+		UI_LIBRARY = aUiLibrary;
+		UI_BOOK = aUiBook;
+		UI_CHAPTER = aUiChapter;
 		{	// buttons
 			BUTTON_CLOSE = new Button();
 			BUTTON_BOOK = new ToggleButton();
@@ -108,8 +117,11 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		buildUi();
 	}
 
-	@Override public UiLibrary getUiLibrary() { return UI_LIBRARY; }
 	@Override public ObjectProperty<UiContentSelector> uiContentSelectorProperty() { return UI_CONTENT_SELECTOR; }
+	// ui
+	@Override public UiLibrary getUiLibrary() { return UI_LIBRARY; }
+	@Override public UiBook getUiBook() { return UI_BOOK; }
+	@Override public UiChapter getUiChapter() { return UI_CHAPTER; }
 	// buttons
 	@Override public ToggleButton getButtonBook() { return BUTTON_BOOK; }
 	@Override public ToggleButton getButtonChapter() { return BUTTON_CHAPTER; }
