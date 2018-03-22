@@ -7,9 +7,11 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 public abstract class UiContentNavigator extends TitledPane {
 
+	public abstract StackPane getPane();
 	public abstract ObjectProperty<UiContentSelector> uiContentSelectorProperty();
 	// ui
 	public abstract UiLibrary getUiLibrary();

@@ -15,9 +15,11 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 public class UiContentNavigatorImpl extends UiContentNavigator {
 
+	private final StackPane PANE;
 	private final ObjectProperty<UiContentSelector> UI_CONTENT_SELECTOR;
 	// ui
 	private final UiLibrary UI_LIBRARY;
@@ -39,6 +41,10 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		}
 	}
 
+	private void hidePaneChildren() {
+		PANE.getChildren().forEach(node -> node.setVisible(false));
+	}
+
 	private void buildButtonClose() {
 		BUTTON_CLOSE.setText("x");
 		BUTTON_CLOSE.setOnAction(actionEvent -> closeTitledPane());
@@ -54,21 +60,20 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 
 	private void buildButtonsGroup() {
 		{	// buttons
-			new ToggleButton().setToggleGroup(BUTTONS_GROUP);
 			BUTTON_BOOK.setToggleGroup(BUTTONS_GROUP);
 			BUTTON_CHAPTER.setToggleGroup(BUTTONS_GROUP);
 		}
-		BUTTONS_GROUP.selectToggle(null);
 		BUTTONS_GROUP.selectedToggleProperty().addListener(listener -> {
+			hidePaneChildren();
 			final Toggle selectedToggle = BUTTONS_GROUP.getSelectedToggle();
 			if (selectedToggle == BUTTON_BOOK) {
-				setContent(UI_BOOK);
+				UI_BOOK.setVisible(true);
 			}
 			else if (selectedToggle == BUTTON_CHAPTER) {
-				setContent(UI_CHAPTER);
+				UI_CHAPTER.setVisible(true);
 			}
 			else if (selectedToggle == null) {
-				setContent(UI_LIBRARY);
+				UI_LIBRARY.setVisible(true);
 			}
 		});
 	}
@@ -80,6 +85,10 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 	}
 
 	private void buildUi() {
+		PANE.getChildren().add(UI_LIBRARY);
+		PANE.getChildren().add(UI_BOOK);
+		PANE.getChildren().add(UI_CHAPTER);
+		setContent(PANE);
 		{	// buttons
 			buildButtonClose();
 			buildButtonBook();
@@ -90,8 +99,11 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 			buildButtonsBox();
 		}
 		setGraphic(BUTTONS_BOX);
-		setContent(UI_LIBRARY);
 		setMinSize(0, 0);
+		//
+		BUTTONS_GROUP.selectToggle(BUTTONS_GROUP.getToggles().get(0));
+		BUTTONS_GROUP.selectToggle(null);
+
 	}
 
 	@Inject
@@ -100,6 +112,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 	,	UiBook aUiBook
 	,	UiChapter aUiChapter
 	) {
+		PANE = new StackPane();
 		UI_CONTENT_SELECTOR = new SimpleObjectProperty<>(null);
 		// ui
 		UI_LIBRARY = aUiLibrary;
@@ -117,6 +130,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		buildUi();
 	}
 
+	@Override public StackPane getPane() { return PANE; }
 	@Override public ObjectProperty<UiContentSelector> uiContentSelectorProperty() { return UI_CONTENT_SELECTOR; }
 	// ui
 	@Override public UiLibrary getUiLibrary() { return UI_LIBRARY; }
