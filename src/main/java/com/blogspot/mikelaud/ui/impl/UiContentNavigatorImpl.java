@@ -9,7 +9,7 @@ import com.google.inject.Inject;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
@@ -85,10 +85,6 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 	}
 
 	private void buildUi() {
-		PANE.getChildren().add(UI_LIBRARY);
-		PANE.getChildren().add(UI_BOOK);
-		PANE.getChildren().add(UI_CHAPTER);
-		setContent(PANE);
 		{	// buttons
 			buildButtonClose();
 			buildButtonBook();
@@ -98,6 +94,12 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 			buildButtonsGroup();
 			buildButtonsBox();
 		}
+		PANE.getChildren().add(UI_LIBRARY);
+		PANE.getChildren().add(UI_BOOK);
+		PANE.getChildren().add(UI_CHAPTER);
+		PANE.setPadding(new Insets(0));
+		//
+		setContent(PANE);
 		setGraphic(BUTTONS_BOX);
 		setMinSize(0, 0);
 		//
