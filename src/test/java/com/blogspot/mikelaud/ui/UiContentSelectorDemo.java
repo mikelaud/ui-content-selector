@@ -15,6 +15,8 @@ public class UiContentSelectorDemo extends Application {
 		final UiContentViewer uiContentViewer = injector.getInstance(UiContentViewer.class);
 		//
 		final Scene scene = new Scene(uiContentViewer, 1280, 720);
+		final String cssUri = getClass().getClassLoader().getResource("javafx.css").toExternalForm();
+		scene.getStylesheets().add(cssUri);
 		aPrimaryStage.setTitle(UiContentSelectorDemo.class.getSimpleName());
 		aPrimaryStage.setScene(scene);
 		aPrimaryStage.sizeToScene();
