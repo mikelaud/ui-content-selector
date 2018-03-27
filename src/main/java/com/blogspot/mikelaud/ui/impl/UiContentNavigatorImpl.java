@@ -25,6 +25,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 	private final UiBook UI_BOOK;
 	private final UiChapter UI_CHAPTER;
 	// buttons
+	private final ToggleButton BUTTON_LIBRARY;
 	private final ToggleButton BUTTON_BOOK;
 	private final ToggleButton BUTTON_CHAPTER;
 	private final Button BUTTON_CLOSE;
@@ -49,6 +50,10 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		BUTTON_CLOSE.setOnAction(actionEvent -> closeTitledPane());
 	}
 
+	private void buildButtonLibrary() {
+		BUTTON_LIBRARY.setText("Library");
+	}
+
 	private void buildButtonBook() {
 		BUTTON_BOOK.setText("Book");
 	}
@@ -59,13 +64,17 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 
 	private void buildButtonsGroup() {
 		{	// buttons
+			BUTTON_LIBRARY.setToggleGroup(BUTTONS_GROUP);
 			BUTTON_BOOK.setToggleGroup(BUTTONS_GROUP);
 			BUTTON_CHAPTER.setToggleGroup(BUTTONS_GROUP);
 		}
 		BUTTONS_GROUP.selectedToggleProperty().addListener(listener -> {
 			hidePaneChildren();
 			final Toggle selectedToggle = BUTTONS_GROUP.getSelectedToggle();
-			if (selectedToggle == BUTTON_BOOK) {
+			if (selectedToggle == BUTTON_LIBRARY) {
+				UI_LIBRARY.setVisible(true);
+			}
+			else if (selectedToggle == BUTTON_BOOK) {
 				UI_BOOK.setVisible(true);
 			}
 			else if (selectedToggle == BUTTON_CHAPTER) {
@@ -79,6 +88,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 
 	private void buildButtonsBox() {
 		BUTTONS_BOX.getChildren().add(BUTTON_CLOSE);
+		BUTTONS_BOX.getChildren().add(BUTTON_LIBRARY);
 		BUTTONS_BOX.getChildren().add(BUTTON_BOOK);
 		BUTTONS_BOX.getChildren().add(BUTTON_CHAPTER);
 	}
@@ -86,6 +96,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 	private void buildUi() {
 		{	// buttons
 			buildButtonClose();
+			buildButtonLibrary();
 			buildButtonBook();
 			buildButtonChapter();
 		}
@@ -123,6 +134,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		UI_CHAPTER = aUiChapter;
 		{	// buttons
 			BUTTON_CLOSE = new Button();
+			BUTTON_LIBRARY = new ToggleButton();
 			BUTTON_BOOK = new ToggleButton();
 			BUTTON_CHAPTER = new ToggleButton();
 		}
@@ -140,6 +152,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 	@Override public UiBook getUiBook() { return UI_BOOK; }
 	@Override public UiChapter getUiChapter() { return UI_CHAPTER; }
 	// buttons
+	@Override public ToggleButton getButtonLibrary() { return BUTTON_LIBRARY; }
 	@Override public ToggleButton getButtonBook() { return BUTTON_BOOK; }
 	@Override public ToggleButton getButtonChapter() { return BUTTON_CHAPTER; }
 	@Override public Button getButtonClose() { return BUTTON_CLOSE; }

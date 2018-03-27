@@ -18,6 +18,7 @@ public abstract class UiContentNavigator extends TitledPane {
 	public abstract UiBook getUiBook();
 	public abstract UiChapter getUiChapter();
 	// buttons
+	public abstract ToggleButton getButtonLibrary();
 	public abstract ToggleButton getButtonBook();
 	public abstract ToggleButton getButtonChapter();
 	public abstract Button getButtonClose();
