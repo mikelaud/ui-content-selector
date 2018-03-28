@@ -83,6 +83,9 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 			else if (selectedToggle == null) {
 				UI_LIBRARY.setVisible(true);
 			}
+			if (null != UI_CONTENT_SELECTOR.get()) {
+				UI_CONTENT_SELECTOR.get().getAccordion().setExpandedPane(this);
+			}
 		});
 	}
 
