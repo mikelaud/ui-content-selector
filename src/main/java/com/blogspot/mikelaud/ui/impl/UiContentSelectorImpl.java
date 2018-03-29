@@ -41,7 +41,9 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	private void buildButtonOpenLibrary() {
 		BUTTON_OPEN_LIBRARY.setText("Open Library");
 		BUTTON_OPEN_LIBRARY.setOnAction(actionEvent -> {
-			ACCORDION.getPanes().add(newUiContentNavigator("Book N"));
+			final UiContentNavigator uiContentNavigator = newUiContentNavigator("Book N");
+			ACCORDION.getPanes().add(uiContentNavigator);
+			ACCORDION.setExpandedPane(uiContentNavigator);
 		});
 	}
 

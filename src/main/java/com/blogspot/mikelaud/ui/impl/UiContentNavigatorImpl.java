@@ -118,9 +118,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		setGraphic(BUTTONS_BOX);
 		setMinSize(0, 0);
 		//
-		BUTTONS_GROUP.selectToggle(BUTTONS_GROUP.getToggles().get(0));
-		BUTTONS_GROUP.selectToggle(null);
-
+		BUTTONS_GROUP.selectToggle(BUTTON_LIBRARY);
 	}
 
 	@Inject
