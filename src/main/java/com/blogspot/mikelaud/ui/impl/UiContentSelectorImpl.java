@@ -52,12 +52,6 @@ public class UiContentSelectorImpl extends UiContentSelector {
 		BOOTONS_BAR.getItems().add(BUTTON_OPEN_LIBRARY);
 	}
 
-	private void buidAccordion() {
-		ACCORDION.getPanes().add(newUiContentNavigator("Test 1"));
-		ACCORDION.getPanes().add(newUiContentNavigator("Test 2"));
-		ACCORDION.getPanes().add(newUiContentNavigator("Test 3"));
-	}
-
 	private void buidAccordionImage() {
 		final Image image = new Image(getClass().getClassLoader().getResourceAsStream("background.png"));
 		ACCORDION_IMAGE.getImageView().setImage(image);
@@ -75,7 +69,6 @@ public class UiContentSelectorImpl extends UiContentSelector {
 		}
 		buildButtonsBar();
 		{	// accordion
-			buidAccordion();
 			buidAccordionImage();
 			buidAccordionPane();
 		}
