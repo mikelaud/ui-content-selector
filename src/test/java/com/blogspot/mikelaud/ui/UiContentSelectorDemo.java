@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -22,6 +23,7 @@ public class UiContentSelectorDemo extends Application {
 		aPrimaryStage.sizeToScene();
 		aPrimaryStage.centerOnScreen();
 		aPrimaryStage.show();
+		Platform.runLater(() -> uiContentViewer.getUiContentSelector().getButtonOpenLibrary().requestFocus());
 		//
 		final String mediaUri = getClass().getClassLoader().getResource("background.mp4").toExternalForm();
 		uiContentViewer.getUiVideo().openMedia(mediaUri);
