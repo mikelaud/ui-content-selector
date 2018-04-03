@@ -114,7 +114,7 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 			
 			sp.setId("UiContentNavigator-PANE");
 			sp.setContent(UI_LIBRARY);
-			sp.setHbarPolicy(ScrollBarPolicy.NEVER);
+			sp.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 			sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 			//sp.getChildren().add(UI_BOOK);
 			//sp.getChildren().add(UI_CHAPTER);
