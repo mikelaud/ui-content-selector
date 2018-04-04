@@ -10,8 +10,6 @@ import com.google.inject.Inject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -110,20 +108,10 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 			buildButtonsBox();
 		}
 		{
-			ScrollPane sp = new ScrollPane();
-			
-			sp.setId("UiContentNavigator-PANE");
-			sp.setContent(UI_LIBRARY);
-			sp.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-			sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-			//sp.getChildren().add(UI_BOOK);
-			//sp.getChildren().add(UI_CHAPTER);
-
 			PANE.setId("UiContentNavigator-PANE");
-			//PANE.getChildren().add(UI_LIBRARY);
-			//PANE.getChildren().add(UI_BOOK);
-			//PANE.getChildren().add(UI_CHAPTER);
-			PANE.getChildren().add(sp);
+			PANE.getChildren().add(UI_LIBRARY);
+			PANE.getChildren().add(UI_BOOK);
+			PANE.getChildren().add(UI_CHAPTER);
 		}
 		setContent(PANE);
 		//
