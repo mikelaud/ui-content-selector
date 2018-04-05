@@ -24,6 +24,8 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	private final UiImage ACCORDION_IMAGE;
 	private final StackPane ACCORDION_PANE;
 	
+	private int mBookNumber;
+	
 	private UiContentNavigator newUiContentNavigator(String aTitle) {
 		final UiContentNavigator uiContentNavigator = UI_CONTENT_NAVIGATOR_PROVIDER.get();
 		uiContentNavigator.uiContentSelectorProperty().set(this);
@@ -41,7 +43,8 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	private void buildButtonOpenLibrary() {
 		BUTTON_OPEN_LIBRARY.setText("Open Library");
 		BUTTON_OPEN_LIBRARY.setOnAction(actionEvent -> {
-			final UiContentNavigator uiContentNavigator = newUiContentNavigator("Book N");
+			mBookNumber++;
+			final UiContentNavigator uiContentNavigator = newUiContentNavigator("Book N" + mBookNumber);
 			ACCORDION.getPanes().add(uiContentNavigator);
 			ACCORDION.setExpandedPane(uiContentNavigator);
 		});
@@ -93,6 +96,7 @@ public class UiContentSelectorImpl extends UiContentSelector {
 			ACCORDION_IMAGE = aUiImage;
 			ACCORDION_PANE = new StackPane();
 		}
+		mBookNumber = 0;
 		buildUi();
 	}
 
