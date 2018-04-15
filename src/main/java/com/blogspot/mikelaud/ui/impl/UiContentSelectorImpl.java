@@ -29,7 +29,7 @@ public class UiContentSelectorImpl extends UiContentSelector {
 	private UiContentNavigator newUiContentNavigator(String aTitle) {
 		final UiContentNavigator uiContentNavigator = UI_CONTENT_NAVIGATOR_PROVIDER.get();
 		uiContentNavigator.uiContentSelectorProperty().set(this);
-		uiContentNavigator.setText(aTitle);
+		//uiContentNavigator.setText(aTitle);
 		return uiContentNavigator;
 	}
 

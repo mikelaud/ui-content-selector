@@ -10,11 +10,13 @@ import com.google.inject.Inject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class UiContentNavigatorImpl extends UiContentNavigator {
 
@@ -94,6 +96,11 @@ public class UiContentNavigatorImpl extends UiContentNavigator {
 		BUTTONS_BOX.getChildren().add(BUTTON_LIBRARY);
 		BUTTONS_BOX.getChildren().add(BUTTON_BOOK);
 		BUTTONS_BOX.getChildren().add(BUTTON_CHAPTER);
+		//
+		final VBox labelBox = new VBox();
+		labelBox.getChildren().add(new Label("Book1"));
+		labelBox.getChildren().add(new Label("Chapter1"));
+		BUTTONS_BOX.getChildren().add(labelBox);
 	}
 
 	private void buildUi() {
